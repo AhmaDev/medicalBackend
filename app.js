@@ -26,10 +26,12 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/users", require("./routes/user"));
 app.use("/tests", require("./routes/test"));
+app.use("/testGroups", require("./routes/testGroup"));
 app.use("/patients", require("./routes/patient"));
 app.use("/patientTests", require("./routes/patientTest"));
 app.use("/financials", require("./routes/financial"));
 app.use("/financialTypes", require("./routes/financialType"));
+app.use("/testRanges", require("./routes/testRange"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

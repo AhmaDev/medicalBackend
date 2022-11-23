@@ -6,7 +6,7 @@ var connection = mysql.createConnection(db);
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
-  connection.query("SELECT * FROM financialType", (err, result) => {
+  connection.query("SELECT * FROM testRange", (err, result) => {
     res.send(result);
     if (err) {
       console.log(err);
@@ -16,7 +16,7 @@ router.get("/", function (req, res, next) {
 
 router.get("/:id", function (req, res, next) {
   connection.query(
-    "SELECT * FROM financialType WHERE idFinancialType = ?",
+    "SELECT * FROM testRange WHERE idTestRange = ?",
     [req.params["id"]],
     (err, result) => {
       if (result.length > 0) {
@@ -34,23 +34,19 @@ router.get("/:id", function (req, res, next) {
 /* ADD USER */
 router.post("/new", function (req, res, next) {
   console.log(req.body);
-  connection.query(
-    `INSERT INTO financialType SET ?`,
-    req.body,
-    (err, result) => {
-      res.send(result);
-      if (err) {
-        console.log(err);
-      }
-    },
-  );
+  connection.query(`INSERT INTO testRange SET ?`, req.body, (err, result) => {
+    res.send(result);
+    if (err) {
+      console.log(err);
+    }
+  });
 });
 
 /* EDIT USER */
 router.put("/edit/:id", function (req, res, next) {
   console.log(req.body);
   connection.query(
-    `UPDATE financialType SET ? WHERE idFinancialType = ${req.params["id"]}`,
+    `UPDATE testRange SET ? WHERE idTestRange = ${req.params["id"]}`,
     [req.body],
     (err, result) => {
       res.send(result);
@@ -65,7 +61,7 @@ router.put("/edit/:id", function (req, res, next) {
 router.delete("/:id", function (req, res, next) {
   console.log(req.body);
   connection.query(
-    `DELETE FROM financialType WHERE idFinancialType = ${req.params["id"]}`,
+    `DELETE FROM testRange WHERE idTestRange = ${req.params["id"]}`,
     (err, result) => {
       res.send(result);
       if (err) {
