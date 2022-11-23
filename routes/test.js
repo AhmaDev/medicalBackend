@@ -9,15 +9,15 @@ router.get("/", function (req, res, next) {
   connection.query(
     "SELECT *, IFNULL((SELECT json_object('testId',testId,'rangeFrom',rangeFrom,'rangeTo',rangeTo,'notice',notice) FROM testRange WHERE testRange.testId = test.idTest AND testRange.testRangeSex = 'male' LIMIT 1),'[]') As male, IFNULL((SELECT json_object('testId',testId,'rangeFrom',rangeFrom,'rangeTo',rangeTo,'notice',notice) FROM testRange WHERE testRange.testId = test.idTest AND testRange.testRangeSex = 'female' LIMIT 1),'[]') As female FROM test",
     (err, result) => {
+      if (err) {
+        console.log(err);
+      }
       if (result.length > 0) {
         result = result.map((row) => ((row.male = JSON.parse(row.male)), row));
         result = result.map(
           (row) => ((row.female = JSON.parse(row.female)), row),
         );
         res.send(result);
-        if (err) {
-          console.log(err);
-        }
       }
     },
   );
